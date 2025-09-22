@@ -19,24 +19,19 @@ public class TodoService {
         todos.add(new Todo(++todosCount, "Jack","Get AWS Certified",
                 LocalDate.now().plusYears(10), false ));
         todos.add(new Todo(++todosCount, "Jack","Learn DevOps",
-                LocalDate.now().plusYears(11), true ));
-        todos.add(new Todo(++todosCount, "Jack","Learn Full Stack Development",
-                LocalDate.now().plusYears(12), false )); todos.add(new Todo(++todosCount, "Jack","Get AWS Certified",
-                LocalDate.now().plusYears(10), false ));
-        todos.add(new Todo(++todosCount, "Jack","Learn DevOps",
-                LocalDate.now().plusYears(11), true ));
-        todos.add(new Todo(++todosCount, "Jack","Learn Full Stack Development",
-                LocalDate.now().plusYears(12), false )); todos.add(new Todo(++todosCount, "Jack","Get AWS Certified",
-                LocalDate.now().plusYears(10), false ));
-        todos.add(new Todo(++todosCount, "Jack","Learn DevOps",
-                LocalDate.now().plusYears(11), true ));
-        todos.add(new Todo(++todosCount, "Jack","Learn Full Stack Development",
-                LocalDate.now().plusYears(12), false )); todos.add(new Todo(++todosCount, "Jack","Get AWS Certified",
-                LocalDate.now().plusYears(10), false ));
-        todos.add(new Todo(++todosCount, "Jack","Learn DevOps",
-                LocalDate.now().plusYears(11), true ));
+                LocalDate.now().plusYears(11), false ));
         todos.add(new Todo(++todosCount, "Jack","Learn Full Stack Development",
                 LocalDate.now().plusYears(12), false ));
+        todos.add(new Todo(++todosCount, "Jack","Get AWS Certified",
+                LocalDate.now().plusYears(10), false ));
+        todos.add(new Todo(++todosCount, "Jack","Learn DevOps",
+                LocalDate.now().plusYears(11), false ));
+        todos.add(new Todo(++todosCount, "Jack","Learn Full Stack Development",
+                LocalDate.now().plusYears(12), false ));
+        todos.add(new Todo(++todosCount, "Jack","Get AWS Certified",
+                LocalDate.now().plusYears(10), false ));
+        todos.add(new Todo(++todosCount, "Jack","Learn DevOps",
+                LocalDate.now().plusYears(11), false ));
     }
 
     public List<Todo> findByUsername(String username){

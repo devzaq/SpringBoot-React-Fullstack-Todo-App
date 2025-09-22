@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TodoDetails from "../components/TodoDetails";
 import {
+  createNewTodo,
   deleteTodoForUsernameById,
   retrieveAllTodosForUsername,
   updateDone,
@@ -9,17 +10,17 @@ import {
 import { useAuthContext } from "../security/AuthContext";
 
 function ListTodoPage() {
-  // const today = new Date("2027", "01", "05");
   const [todos, setTodos] = useState([]);
   const { username } = useAuthContext();
   const [updateTrigger, setUpdateTrigger] = useState(false);
   const [message, setMessage] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
     const getTodos = async () => {
       const response = await retrieveAllTodosForUsername(username);
-      setTodos(response.data);
+      const data = response.data;
+      // data.sort((a, b) => b.id - a.id);
+      setTodos(data);
     };
     getTodos();
   }, [username, updateTrigger]);
@@ -28,10 +29,6 @@ function ListTodoPage() {
     await deleteTodoForUsernameById(username, id);
     setUpdateTrigger((e) => !e);
     setMessage("Todo Deleted with the ID: " + id);
-  }
-
-  async function handleUpdateTodo(id) {
-    navigate(`/todo/${id}`);
   }
 
   const handleIsDoneChange = async (id) => {
@@ -58,21 +55,20 @@ function ListTodoPage() {
             </tr>
           </thead>
           <tbody>
-            {todos.map(({ id, description, done, targetDate }) => (
+            {todos.map((todo) => (
               <TodoDetails
+                key={todo.id}
+                todo={todo}
                 setUpdateTrigger={setUpdateTrigger}
-                key={id}
-                id={id}
-                description={description}
-                isDone={done}
                 handleIsDoneChange={handleIsDoneChange}
                 handleDeleteTodo={handleDeleteTodo}
-                targetDate={targetDate}
-                handleUpdateTodo={handleUpdateTodo}
               />
             ))}
           </tbody>
         </table>
+        <Link className="btn btn-success m-5" to="/todo">
+          Add New Todo
+        </Link>
       </div>
     </div>
   );

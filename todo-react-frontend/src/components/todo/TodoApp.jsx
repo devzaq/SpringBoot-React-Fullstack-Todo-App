@@ -26,7 +26,7 @@ function TodoApp() {
               <Route path="/logout" element={<LogoutPage />} />
               <Route path="/welcome" element={<WelcomePage />} />
               <Route path="/todos" element={<ListTodoPage />} />
-              <Route path="/todo/:id" element={<TodoPage />} />
+              <Route path="/todo/:id?" element={<TodoPage />} />
             </Route>
             <Route path="*" element={<ErrorPage />} />
           </Routes>

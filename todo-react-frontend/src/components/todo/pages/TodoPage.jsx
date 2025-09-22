@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { retrieveTodo, updateTodo } from "../api/TodoApiService";
+import { createNewTodo, retrieveTodo, updateTodo } from "../api/TodoApiService";
 import { useAuthContext } from "../security/AuthContext";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import moment from "moment";
 
-let todo;
 function TodoPage() {
   const [description, setDescription] = useState("");
   const [targetDate, setTaragetDate] = useState("");
@@ -15,27 +15,39 @@ function TodoPage() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await retrieveTodo(username, id);
-      todo = response.data;
-      setDescription(todo.description);
-      setTaragetDate(todo.targetDate);
+      setDescription(response.data.description);
+      setTaragetDate(response.data.targetDate);
     };
-    fetchData();
+    id && fetchData();
   }, [id, username]);
 
   async function handleSubmit(values) {
-    // await updateTodo(username, { ...todo, ...values });
-    // navigate("/todos");
-    console.log({ ...todo });
-    console.log("validated sucessfully");
+    const res = id
+      ? await updateTodo(username, {
+          id,
+          username,
+          done: false,
+          ...values,
+        })
+      : await createNewTodo(username, {
+          ...values,
+          username,
+          done: false,
+        });
+
+    if (res.status === 200) navigate("/todos");
   }
 
   async function handleValidate(values) {
     let error = {};
     if (values.description.length < 5)
       error.description = "Description must be 5 or more characters long!";
-    if (values.targetDate == null)
+    if (
+      values.targetDate === null ||
+      values.targetDate === "" ||
+      !moment(values.targetDate).isValid
+    )
       error.description = "Enter a valid Target Date!";
-    console.log({ ...todo, ...values });
     return error;
   }
 

@@ -21,5 +21,9 @@ export async function updateDone(username, todo) {
 }
 
 export async function updateTodo(username, todo) {
-  await apiClient.put(`/users/${username}/todos/${todo.id}`, todo);
+  return await apiClient.put(`/users/${username}/todos/${todo.id}`, todo);
+}
+
+export async function createNewTodo(username, todo) {
+  return await apiClient.post(`/users/${username}/todos`, todo);
 }

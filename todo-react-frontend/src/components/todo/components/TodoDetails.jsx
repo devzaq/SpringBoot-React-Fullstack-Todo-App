@@ -1,34 +1,28 @@
-function TodoDetails({
-  id,
-  description,
-  isDone,
-  handleIsDoneChange,
-  handleDeleteTodo,
-  targetDate,
-  handleUpdateTodo,
-}) {
+import { Link } from "react-router-dom";
+
+function TodoDetails({ todo, handleIsDoneChange, handleDeleteTodo }) {
   return (
     <tr>
-      <td>{id}</td>
-      <td>{description}</td>
-      <td>{targetDate}</td>
+      <td>{todo.id}</td>
+      <td>{todo.description}</td>
+      <td>{todo.targetDate}</td>
       <td>
         <input
-          onChange={() => handleIsDoneChange(id)}
+          onChange={() => handleIsDoneChange(todo.id)}
           type="checkbox"
-          checked={isDone}
+          checked={todo.isDone}
         />
       </td>
       <td>
-        <button
-          onClick={() => handleUpdateTodo(id)}
-          className="btn btn-primary"
-        >
+        <Link to={`/todo/${todo.id}`} className="btn btn-primary">
           update
-        </button>
+        </Link>
       </td>
       <td>
-        <button onClick={() => handleDeleteTodo(id)} className="btn btn-danger">
+        <button
+          onClick={() => handleDeleteTodo(todo.id)}
+          className="btn btn-danger"
+        >
           delete
         </button>
       </td>

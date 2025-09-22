@@ -1,15 +1,18 @@
 package com.dz.todo.backend.api.demo.todo;
 
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class TodoController {
 
-    private TodoService todoService;
+    private final TodoService todoService;
 
     public TodoController(TodoService todoService) {
         this.todoService = todoService;
@@ -35,12 +38,14 @@ public class TodoController {
     }
 
     @PutMapping("/users/{username}/todos/{id}")
-    public void updateTodoById(@PathVariable String username, @PathVariable int id, @Valid @RequestBody Todo todo){
+    public Todo updateTodoById(@PathVariable String username, @PathVariable int id, @Valid @RequestBody Todo todo){
         todoService.updateTodo(todo);
+        System.out.println("TodoUPDATE: "+todo);
+        return todo;
     }
+
     @DeleteMapping("/users/{username}/todos/{id}")
     public void deleteTodoById(@PathVariable String username, @PathVariable int id){
-        System.out.println("DeleteTodo");
         todoService.deleteById(id);
     }
 
